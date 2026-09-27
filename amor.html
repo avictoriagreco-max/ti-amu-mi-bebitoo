@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Una sorpresa para vos ♡</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #ffeef2;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .card-container {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+    }
+
+    h1 {
+      color: #ff4d6d;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #555;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .kitty-img {
+      max-width: 220px;
+      width: 100%;
+      height: auto;
+      margin: 10px 0 20px 0;
+      border-radius: 15px;
+      object-fit: contain;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    button {
+      background-color: #ff758f;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(255, 117, 143, 0.4);
+    }
+
+    button:hover {
+      background-color: #ff4d6d;
+      transform: translateY(-2px);
+    }
+
+    /* Pantalla de la Carta */
+    .envelope-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Corazones latiendo alrededor */
+    .beating-heart {
+      position: absolute;
+      color: #ff0035;
+      font-size: 26px;
+      animation: beat 1.2s infinite ease-in-out;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.35); }
+    }
+
+    .h1 { top: -45px; left: -10px; animation-delay: 0s; }
+    .h2 { top: -45px; right: -10px; animation-delay: 0.2s; }
+    .h3 { bottom: -25px; left: -10px; animation-delay: 0.4s; }
+    .h4 { bottom: -25px; right: -10px; animation-delay: 0.6s; }
+    .h5 { top: 50%; left: -35px; animation-delay: 0.3s; }
+    .h6 { top: 50%; right: -35px; animation-delay: 0.5s; }
+
+    /* Carta Interactiva */
+    .envelope {
+      background-color: #ffb3c6;
+      border: 2px solid #ff758f;
+      border-radius: 15px;
+      padding: 25px;
+      cursor: pointer;
+      width: 100%;
+      min-height: 160px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 15px rgba(255, 117, 143, 0.3);
+    }
+
+    .envelope:hover {
+      background-color: #ffa6c1;
+      transform: scale(1.02);
+    }
+
+    .envelope-text {
+      color: #c9184a;
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    .letter-content {
+      display: none;
+      color: #590d22;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .final-message {
+      display: none;
+      margin-top: 25px;
+      color: #ff0054;
+      font-weight: bold;
+      font-size: 1.4rem;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Paso 1: Pregunta inicial -->
+  <div id="step-1" class="card-container">
+    <h1>¡Te tengo una sorpresa! ♡</h1>
+    <p>¿Querés saber qué es?</p>
+    <div class="btn-group">
+      <button onclick="showLetter()">¡Sí!</button>
+      <button onclick="showStep2()">No</button>
+    </div>
+  </div>
+
+  <!-- Paso 2: Primer "No" (Imagen 1) -->
+  <div id="step-2" class="card-container" style="display: none;">
+    <p>Porfavooooor me esforce muto mi bebitoooo 🥺</p>
+    <img class="kitty-img" src="https://share.google/udPvitlR9Q0nsAPXD" alt="Hello Kitty Triste 1">
+    <div class="btn-group">
+      <button onclick="showLetter()">Está bien, sí</button>
+      <button onclick="showStep3()">No</button>
+    </div>
+  </div>
+
+  <!-- Paso 3: Segundo "No" (Imagen 2) -->
+  <div id="step-3" class="card-container" style="display: none;">
+    <p>Pooooooorfaaaaavooooor... 😭💔</p>
+    <img class="kitty-img" src="https://share.google/tntLkW1hzuy5YroJu" alt="Hello Kitty Triste 2">
+    <div class="btn-group">
+      <button onclick="showLetter()">¡Sí!</button>
+      <button onclick="showLetter()">¡SIII!</button>
+    </div>
+  </div>
+
+  <!-- Paso 4: La carta y los corazones latiendo -->
+  <div id="step-letter" class="card-container envelope-screen">
+    <div class="beating-heart h1">❤️</div>
+    <div class="beating-heart h2">❤️</div>
+    <div class="beating-heart h3">❤️</div>
+    <div class="beating-heart h4">❤️</div>
+    <div class="beating-heart h5">❤️</div>
+    <div class="beating-heart h6">❤️</div>
+
+    <div class="envelope" id="envelope" onclick="openLetter()">
+      <span class="envelope-text" id="envelope-title">✉️ Abrí la carta</span>
+      <div class="letter-content" id="letter-body">
+        "Mi amor, si estas leyendo esto es porque te amo lo suficiente para aprender a amarte en todos los lenguajes, incluso en el que mas te gusta, la programación."
+      </div>
+    </div>
+
+    <div class="final-message" id="final-msg">
+      Te amo infinitamente ❤️
+    </div>
+  </div>
+
+  <script>
+    function hideAll() {
+      document.getElementById('step-1').style.display = 'none';
+      document.getElementById('step-2').style.display = 'none';
+      document.getElementById('step-3').style.display = 'none';
+    }
+
+    function showStep2() {
+      hideAll();
+      document.getElementById('step-2').style.display = 'block';
+    }
+
+    function showStep3() {
+      hideAll();
+      document.getElementById('step-3').style.display = 'block';
+    }
+
+    function showLetter() {
+      hideAll();
+      document.getElementById('step-letter').style.display = 'flex';
+    }
+
+    function openLetter() {
+      const title = document.getElementById('envelope-title');
+      const body = document.getElementById('letter-body');
+      const finalMsg = document.getElementById('final-msg');
+
+      title.style.display = 'none';
+      body.style.display = 'block';
+      finalMsg.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
